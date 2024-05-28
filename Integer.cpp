@@ -26,8 +26,8 @@ namespace cosc326 {
 
 
 	/* Constructor for string input. 
-	* Handles the checking for unvalid inputs
-	* If the input is unvalid it will init to 0. 
+	* Handles the checking for invalid inputs
+	* If the input is invalid, main will init to 0. 
 	*/
 	Integer::Integer(const std::string& s)
 	{
@@ -39,7 +39,7 @@ namespace cosc326 {
 		if(str.empty()) {
 			new (this) Integer(); 
 		}
-		// if there a negitive asign false. 
+		// Negitive check
 		if(str[0] == '-') {
 			isPostive = false; 
 			str.erase(0,1);
@@ -53,7 +53,7 @@ namespace cosc326 {
 			i++; 
 		}
 
-		// default init. 
+		// Default init. 
 		if(!check) {
 			std::cout << "Tried to convert an non number to an Integer\n";
 			std::cout << "Integer will be initalized to 0\n";
@@ -63,7 +63,7 @@ namespace cosc326 {
 		}
 	}
 
-	// Don't need to delete anything. 
+	// Destructor (Don't need to delete anything)
 	Integer::~Integer() {}
 
 	// preserves the number and the sign
@@ -98,7 +98,7 @@ namespace cosc326 {
 	}
 
 	/* Addition
-	* Can be equivalently defined as Subtraction depeding on the size of two Integers and/or their signs. 
+	* Can be equivalently defined as subtraction depeding on the size of two integers and/or their signs. 
 	*/ 
 	Integer& Integer::operator+=(const Integer& i) 
 	{
@@ -118,7 +118,7 @@ namespace cosc326 {
 	}
 
 	/* Subtraction
-	* Can be equivalently defined as Addition depeding on the size of two Integers and/or their signs. 
+	* Can be equivalently defined as addition depeding on the size of two Integers and/or their signs. 
 	*/ 
 	Integer& Integer::operator-=(const Integer& i) 
 	{
@@ -148,8 +148,8 @@ namespace cosc326 {
 		return *this;
 	}
 
-	/* Multiplcation
-	* Trivally implimented. 
+	/* 
+	* Multiplcation
 	*/
 	Integer& Integer::operator*=(const Integer& i) 
 	{
@@ -164,7 +164,7 @@ namespace cosc326 {
 
 	/* Division. 
 	* We asign a new Integer here rather than a string. 
-	* As we our division algorithm is defined interms of our other Integer functions. 
+	* As we our division algorithm is defined in terms of our other Integer functions. 
 	*/ 
 	Integer& Integer::operator/=(const Integer& i) 
 	{
@@ -179,8 +179,8 @@ namespace cosc326 {
 		return *this;
 	}
 
-	/* Modulas.
-	* Uses the pretty much the same function as the division. However, returns the remainder. 
+	/* Modulus
+	* Use an indentical function to division, other than we output the remainder.
 	*/
 	Integer& Integer::operator%=(const Integer& i) 
 	{
@@ -236,8 +236,8 @@ namespace cosc326 {
 		return os; 
 	}
 	
-	/* basic inputstream
-	* Minimal. Our string constructor handles all the error checking. 
+	/* 
+	* Basic input stream.
 	*/
 	std::istream& operator>>(std::istream& is, Integer& i) 
 	{
@@ -251,7 +251,7 @@ namespace cosc326 {
 	}
 	
 	/*
-	* Function from internet
+	* This function is plagiarised from stack overflow (Can't find the link),
 	* Basic < operator but for to numbers repersented by strings.
 	*/
 	bool operator<(const Integer& lhs, const Integer& rhs) 
@@ -260,8 +260,7 @@ namespace cosc326 {
 		int n1 = lhs.main.size(), n2 = rhs.main.size();
 		
 		/*
-		* I've added this ifelse statement to either ensure we just checking if two positive Integer are being check.
-		* Also, if the signs are different we can easily return the correct bool. 
+		* Modified, adding this if else statement to check the easy cases to speed things up.
 		*/
 		if(!lhs.isPostive && !rhs.isPostive) 
 			return +lhs > +rhs;
@@ -270,7 +269,7 @@ namespace cosc326 {
 		else if (lhs.isPostive && !rhs.isPostive)
 			return false;
 
-		// from internet from here onwards. 
+		// From stack overflow onwards.
     	if (n1 < n2)
         	return true;
     	if (n2 < n1)
@@ -285,20 +284,19 @@ namespace cosc326 {
     	return false;
 	}
 
-	// ^^ same as above. 
+	//  Basically the same as above.
 	bool operator> (const Integer& lhs, const Integer& rhs) {
 		 
 		int n1 = lhs.main.size(), n2 = rhs.main.size();
 		
-		// ^^ same as above. 
+	
 		if(!lhs.isPostive && !rhs.isPostive)
 			return +lhs < +rhs; 
 		else if (!lhs.isPostive && rhs.isPostive)
 			return false; 
 		else if (lhs.isPostive && !rhs.isPostive)
 			return true;
-		
-		// from internet from here onwards. 
+	
     	if (n1 > n2)
         	return true;
     	if (n2 > n1)
@@ -332,7 +330,7 @@ namespace cosc326 {
 		return !(lhs == rhs);
 	}
 
-	// basic gcd algorithm easily defined by all of our other functions. 
+	// basic gcd algorithm, needed for many of the methods.
 	Integer gcd(const Integer& a, const Integer& b) 
 	{
 		
@@ -351,7 +349,9 @@ namespace cosc326 {
 		return gcd(a, b-a); 
 	}
 
-	// read README for more from internet. 
+	/*
+	* Function for taking two strings and adding the together. https://www.geeksforgeeks.org/sum-two-large-numbers/
+	*/ 
 	std::string findSum(std::string str1, std::string str2)
 	{
 		using namespace std; 
@@ -402,7 +402,9 @@ namespace cosc326 {
     	return str;
 	}
 
-	// read README for more
+	/*
+	* Function for taking two strings and substracting then. https://www.geeksforgeeks.org/difference-of-two-large-numbers/
+	*/ 
 	std::string findDiff(std::string str1, std::string str2)
 	{ 
 
@@ -468,7 +470,9 @@ namespace cosc326 {
     	return minus + str;
 	}
 
-	// read README for more. 
+	/*
+	* Function for taking two strings and multiplying then. https://www.geeksforgeeks.org/multiply-large-numbers-represented-as-strings/
+	*/  
 	std::string multiply(std::string num1, std::string num2)
 	{
 		using namespace std;
@@ -536,9 +540,10 @@ namespace cosc326 {
 	}
 
 	/* Division
-	* Basic Premise: We can make the minusing the divisor of the divided type division more efficient make having an
-	* algorithm which makes divisor larger before minusing off the divided then we use a algorithm which mirrors that 
-	* to ensure when we add up how many time we minus we account for the divisor size relative to how we made is larger.
+	* Less naive version of counting how many times, one can minus divisor off of the dividend. 
+	* Instead, we can increase the divisor by a order of mangitude for each iteration until the current divident is larger than the divisor, at which point we can now substract it.
+	* Then we can multiple the Quotient for each iteration. For example 4400 / 4 = 1100. Thus the naive approach has 1100 operations. 
+	* Compared: 4400 / 4000 = 1, R = 400. 400 / 400 = 1 R = 0. Then (1*1000) + (1*100)  = 1100. Here, we have a total of 7 operations.
 	*/
 	Integer division(Integer divided, Integer divisor) 
 	{
@@ -550,7 +555,6 @@ namespace cosc326 {
 			return divided; 
 
 		Integer one = Integer("1"); 
-
 		Integer result = Integer(); 
 
 		size_t lengthT = (divided.main.size() - divisor.main.size() + 1);
@@ -562,14 +566,11 @@ namespace cosc326 {
 			size_t countT = 0; 
 			
 			// algorithm for making dividend larger
-			// pretty basic just making it larger by 10 
 			do {
-				// equivalent as times by 10 but far more efficant than *=Integer("10").  
 				currDivisor.main += "0"; 
 				countT++; 
 			}while(divided > currDivisor); 
 
-			// again by removing the last zero is far more efficant than /=Integer("10"). 
 			currDivisor.main = currDivisor.main.substr(0,currDivisor.main.size()-1); 
 			countT--; 
 
@@ -581,19 +582,18 @@ namespace cosc326 {
 				divided-=currDivisor; 
 			}
 			
-			// taking into account how much larger we made the dividend. 
+			// Taking into account how much larger we made the dividend. 
 			for(int j = 0; j < countT; j++)
 				count.main += "0"; 
 
 			result+=count; 
 		}
-		
 		return result; 
 	}
 
 	 
 	/* Remainder 
-	* Same as the divison algorithm but we return the divided at the end not the
+	* Same as the divison algorithm but we return the divided at the end.
 	*/
 	Integer remainder(Integer divided, Integer divisor) 
 	{
@@ -605,7 +605,6 @@ namespace cosc326 {
 			return divided; 
 
 		Integer one = Integer("1"); 
-
 		Integer result = Integer(); 
 
 		size_t lengthT = (divided.main.size() - divisor.main.size() + 1);
@@ -616,19 +615,14 @@ namespace cosc326 {
 			currDivisor = divisor; 
 			size_t countT = 0; 
 			
-			// algorithm for making dividend larger
-			// pretty basic just making it larger by 10 
 			do {
-				// equivalent as times by 10 but far more efficant than *=Integer("10").  
 				currDivisor.main += "0"; 
 				countT++; 
 			}while(divided > currDivisor); 
 
-			// again by removing the last zero is far more efficant than /=Integer("10"). 
 			currDivisor.main = currDivisor.main.substr(0,currDivisor.main.size()-1); 
 			countT--; 
 
-			// init to 0. 
 			Integer count = Integer(); 
 
 			while(divided >= currDivisor) {
@@ -636,10 +630,8 @@ namespace cosc326 {
 				divided-=currDivisor; 
 			}
 			
-			// taking into account how much larger we made the dividend. 
 			for(int j = 0; j < countT; j++)
 				count.main += "0"; 
-
 			result+=count; 
 		}
 		return divided; 

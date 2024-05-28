@@ -13,8 +13,8 @@ Implements the Rational Class in the Rational.h file.
 
 namespace cosc326 {
 	
-	/*  Default constructor 
-	* To 0/1. 
+	/*  
+	* Default constructor 
 	*/ 
 	Rational::Rational() 
 	{
@@ -170,7 +170,6 @@ namespace cosc326 {
 	}
 
 	/* Multiplication
-	* Trivally Implemented
 	*/ 
 	Rational& Rational::operator*=(const Rational& r) 
 	{
@@ -206,7 +205,7 @@ namespace cosc326 {
 		}
 	}
 
-	/* Return the sign of the ratinoal number.*/ 
+	/* Return the sign of the rational number.*/ 
 	bool Rational::getSign() const 
 	{
 		Integer res = m * n; 
